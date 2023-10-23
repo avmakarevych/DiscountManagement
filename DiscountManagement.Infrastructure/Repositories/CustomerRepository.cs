@@ -49,4 +49,39 @@ public class CustomerRepository : ICustomerRepository
         _context.Customers.Update(customer);
         _context.SaveChanges();
     }
+    public async Task AddAsync(Customer customer)
+    {
+        if (customer == null) throw new ArgumentNullException(nameof(customer));
+
+        await _context.Customers.AddAsync(customer);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<Customer> GetAsync(Guid id)
+    {
+        return await _context.Customers.Include(c => c.Orders)
+            .SingleOrDefaultAsync(c => c.Id == id);
+    }
+
+    public async Task<IEnumerable<Customer>> GetAllAsync()
+    {
+        return await _context.Customers.Include(c => c.Orders).ToListAsync();
+    }
+
+    public async Task RemoveAsync(Guid id)
+    {
+        var customer = await _context.Customers.FindAsync(id);
+        if (customer == null) return;
+
+        _context.Customers.Remove(customer);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(Customer customer)
+    {
+        if (customer == null) throw new ArgumentNullException(nameof(customer));
+
+        _context.Customers.Update(customer);
+        await _context.SaveChangesAsync();
+    }
 }

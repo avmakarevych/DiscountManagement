@@ -4,6 +4,7 @@ using DiscountManagement.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiscountManagement.Infrastructure.Repositories
 {
@@ -48,6 +49,40 @@ namespace DiscountManagement.Infrastructure.Repositories
                 _context.Products.Remove(product);
                 _context.SaveChanges();
             }
+        }
+        public async Task<Product> GetAsync(Guid id)
+        {
+            return await _context.Products.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Product>> GetByOrderIdAsync(Guid orderId)
+        {
+            return await _context.Products.Where(p => p.OrderId == orderId).ToListAsync();
+        }
+
+        public async Task AddAsync(Product product)
+        {
+            if (product == null) throw new ArgumentNullException(nameof(product));
+
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Product product)
+        {
+            if (product == null) throw new ArgumentNullException(nameof(product));
+
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveAsync(Guid id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null) return;
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
         }
     }
 }
