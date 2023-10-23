@@ -79,5 +79,9 @@ namespace DiscountManagement.Infrastructure.Repositories
             _context.Orders.Update(order);
             await _context.SaveChangesAsync();
         }
+        public IEnumerable<Order> GetAll()
+        {
+            return _context.Orders.Include(o => o.Products).ToList();
+        }
     }
 }

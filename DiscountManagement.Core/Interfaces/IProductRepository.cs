@@ -9,4 +9,5 @@ public interface IProductRepository
     void Add(Product product);
     void Update(Product product);
     void Remove(Guid id);
+    IEnumerable<Product> GetAll();
 }

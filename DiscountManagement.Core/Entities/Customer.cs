@@ -17,6 +17,9 @@ public class Customer
     [StringLength(100)]
     [EmailAddress]
     public string Email { get; set; }
+    
+    [StringLength(250)]
+    public string Address { get; set; }
 
     [Range(0, 100)]
     public decimal Discount { get; set; }

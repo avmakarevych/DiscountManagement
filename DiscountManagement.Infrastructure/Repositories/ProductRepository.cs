@@ -84,5 +84,10 @@ namespace DiscountManagement.Infrastructure.Repositories
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
+        
+        public IEnumerable<Product> GetAll()
+        {
+            return _context.Products.ToList();
+        }
     }
 }

@@ -14,4 +14,6 @@ public class Order
 
     [Required]
     public DateTime OrderDate { get; set; }
+    
+    public decimal TotalAmount { get; set; }
 }
