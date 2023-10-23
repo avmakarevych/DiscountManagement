@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Core", "DiscountManagement.Core\DiscountManagement.Core.csproj", "{23EA02B4-0E76-4028-95D3-248392B9ECDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Infrastructure", "DiscountManagement.Infrastructure\DiscountManagement.Infrastructure.csproj", "{A747A10E-25E5-4993-AE01-B278D7A2FA81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23EA02B4-0E76-4028-95D3-248392B9ECDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23EA02B4-0E76-4028-95D3-248392B9ECDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23EA02B4-0E76-4028-95D3-248392B9ECDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23EA02B4-0E76-4028-95D3-248392B9ECDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A747A10E-25E5-4993-AE01-B278D7A2FA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A747A10E-25E5-4993-AE01-B278D7A2FA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A747A10E-25E5-4993-AE01-B278D7A2FA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A747A10E-25E5-4993-AE01-B278D7A2FA81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
