@@ -1,6 +1,4 @@
 using DiscountManagement.Application.DTOs;
-using System;
-using System.Collections.Generic;
 
 namespace DiscountManagement.Application.Interfaces;
 

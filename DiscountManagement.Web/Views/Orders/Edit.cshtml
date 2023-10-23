@@ -1,0 +1,23 @@
+@model DiscountManagement.Application.DTOs.OrderDTO
+
+<h2>Редагувати замовлення</h2>
+
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div>
+        <label>ID клієнта:</label>
+        <input type="text" name="CustomerId" value="@Model.CustomerId" required />
+    </div>
+    <div>
+        <label>Дата замовлення:</label>
+        <input type="date" name="OrderDate" value="@Model.OrderDate.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div>
+        <label>Загальна сума:</label>
+        <input type="number" step="0.01" name="TotalAmount" value="@Model.TotalAmount" required />
+    </div>
+    <!-- Тут можна додати поля для вибору або редагування продуктів, якщо потрібно -->
+    <div>
+        <input type="submit" value="Зберегти" />
+    </div>
+</form>

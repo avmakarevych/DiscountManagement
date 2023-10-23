@@ -1,0 +1,11 @@
+@model DiscountManagement.Application.DTOs.ProductDTO
+
+<h2>Ви дійсно хочете видалити цей продукт?</h2>
+
+<p><strong>Назва:</strong> @Model.Name</p>
+<p><strong>Ціна:</strong> @Model.Price</p>
+
+<form method="post">
+    <input type="submit" value="Так, видалити" />
+    <a href="@Url.Action("Index")">Ні, повернутися назад</a>
+</form>

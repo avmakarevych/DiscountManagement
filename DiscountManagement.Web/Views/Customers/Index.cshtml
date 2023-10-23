@@ -1,0 +1,31 @@
+@model IEnumerable<DiscountManagement.Application.DTOs.CustomerDTO>
+
+<h2>Список клієнтів</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ім'я</th>
+            <th>Email</th>
+            <th>Адреса</th>
+            <th>Знижка</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td>@customer.Address</td>
+                <td>@customer.Discount%</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = customer.Id })">Деталі</a> |
+                    <a href="@Url.Action("Edit", new { id = customer.Id })">Редагувати</a> |
+                    <a href="@Url.Action("Delete", new { id = customer.Id })">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

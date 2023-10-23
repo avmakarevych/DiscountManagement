@@ -1,0 +1,13 @@
+@model DiscountManagement.Application.DTOs.OrderDTO
+
+<h2>Ви дійсно хочете видалити це замовлення?</h2>
+
+<p><strong>ID замовлення:</strong> @Model.Id</p>
+<p><strong>ID клієнта:</strong> @Model.CustomerId</p>
+<p><strong>Дата замовлення:</strong> @Model.OrderDate</p>
+<p><strong>Загальна сума:</strong> @Model.TotalAmount</p>
+
+<form method="post">
+    <input type="submit" value="Так, видалити" />
+    <a href="@Url.Action("Index")">Ні, повернутися назад</a>
+</form>

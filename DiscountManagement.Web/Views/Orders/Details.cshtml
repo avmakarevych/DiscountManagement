@@ -1,0 +1,10 @@
+@model DiscountManagement.Application.DTOs.OrderDTO
+
+<h2>Деталі про замовлення</h2>
+
+<p><strong>ID замовлення:</strong> @Model.Id</p>
+<p><strong>ID клієнта:</strong> @Model.CustomerId</p>
+<p><strong>Дата замовлення:</strong> @Model.OrderDate</p>
+<p><strong>Загальна сума:</strong> @Model.TotalAmount</p>
+
+<a href="@Url.Action("Index")">Назад до списку</a>

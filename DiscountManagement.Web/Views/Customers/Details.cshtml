@@ -1,0 +1,9 @@
+@model DiscountManagement.Application.DTOs.CustomerDTO
+
+<h2>Деталі про клієнта: @Model.Name</h2>
+
+<p><strong>Email:</strong> @Model.Email</p>
+<p><strong>Адреса:</strong> @Model.Address</p>
+<p><strong>Знижка:</strong> @Model.Discount%</p>
+
+<a href="@Url.Action("Index")">Назад до списку</a>

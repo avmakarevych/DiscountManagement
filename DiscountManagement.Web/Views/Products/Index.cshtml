@@ -1,0 +1,27 @@
+@model IEnumerable<DiscountManagement.Application.DTOs.ProductDTO>
+
+<h2>Список продуктів</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Назва</th>
+            <th>Ціна</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = product.Id })">Деталі</a> |
+                    <a href="@Url.Action("Edit", new { id = product.Id })">Редагувати</a> |
+                    <a href="@Url.Action("Delete", new { id = product.Id })">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

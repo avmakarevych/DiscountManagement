@@ -1,7 +1,5 @@
 using DiscountManagement.Core.Interfaces;
 using DiscountManagement.Application.DTOs;
-using System.Collections.Generic;
-using System.Linq;
 using DiscountManagement.Application.Interfaces;
 using DiscountManagement.Core.Entities;
 

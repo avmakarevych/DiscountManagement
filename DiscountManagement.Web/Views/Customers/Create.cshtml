@@ -1,0 +1,25 @@
+@model DiscountManagement.Application.DTOs.CustomerDTO
+
+<h2>@(Model.Id == Guid.Empty ? "Створити нового клієнта" : "Редагувати клієнта")</h2>
+
+<form method="post">
+    <div>
+        <label>Ім'я:</label>
+        <input type="text" name="Name" value="@Model.Name" required />
+    </div>
+    <div>
+        <label>Email:</label>
+        <input type="email" name="Email" value="@Model.Email" required />
+    </div>
+    <div>
+        <label>Адреса:</label>
+        <input type="text" name="Address" value="@Model.Address" />
+    </div>
+    <div>
+        <label>Знижка:</label>
+        <input type="number" name="Discount" value="@Model.Discount" required />
+    </div>
+    <div>
+        <input type="submit" value="Зберегти" />
+    </div>
+</form>

@@ -2,7 +2,7 @@ using DiscountManagement.Core.Entities;
 
 namespace DiscountManagement.Core.Interfaces;
 
-public interface IOrderRepository
+public interface IOrderRepository : IRepository<Order>
 {
     Order Get(Guid id);
     IEnumerable<Order> GetByCustomerId(Guid customerId);
