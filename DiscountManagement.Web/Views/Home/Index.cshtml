@@ -1,15 +1,31 @@
 ﻿@model DiscountManagement.Web.Models.DashboardViewModel
 
-<h2>Дашборд</h2>
+<h1>Дашборд</h1>
 
-<p><strong>Загальна кількість клієнтів:</strong> @Model.TotalCustomers</p>
-<p><strong>Загальна кількість замовлень:</strong> @Model.TotalOrders</p>
-<p><strong>Загальна кількість продуктів:</strong> @Model.TotalProducts</p>
+<div class="statistics">
+    <div class="stat-item">
+        <h2>@Model.TotalCustomers</h2>
+        <p>Загальна кількість клієнтів</p>
+    </div>
+    <div class="stat-item">
+        <h2>@Model.TotalOrders</h2>
+        <p>Загальна кількість замовлень</p>
+    </div>
+    <div class="stat-item">
+        <h2>@Model.TotalProducts</h2>
+        <p>Загальна кількість продуктів</p>
+    </div>
+</div>
 
-<a href="@Url.Action("Create", "Customers")">Створити нового клієнта</a>
-<a href="@Url.Action("Create", "Orders")">Створити нове замовлення</a>
-<a href="@Url.Action("Create", "Products")">Створити новий продукт <br></br></a>
+<div class="actions">
+    <h3>Клієнти</h3>
+    <a class="btn" href="@Url.Action("Create", "Customers")">Створити нового клієнта</a>
+    <a class="btn" href="@Url.Action("Index", "Customers")">Переглянути список клієнтів</a>
 
-<a href="@Url.Action("Index", "Customers")">Переглянути список клієнтів</a>
-<a href="@Url.Action("Create", "Orders")">Створити нове замовлення</a>
-<a href="@Url.Action("Index", "Products")">Переглянути список продуктів</a>
+    <h3>Замовлення</h3>
+    <a class="btn" href="@Url.Action("Create", "Orders")">Створити нове замовлення</a>
+    <a class="btn" href="@Url.Action("Index", "Orders")">Переглянути список замовлень</a>
+    <h3>Продукти</h3>
+    <a class="btn" href="@Url.Action("Create", "Products")">Створити новий продукт</a>
+    <a class="btn" href="@Url.Action("Index", "Products")">Переглянути список продуктів</a>
+</div>

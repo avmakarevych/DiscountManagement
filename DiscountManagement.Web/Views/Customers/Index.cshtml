@@ -23,7 +23,8 @@
                 <td>
                     <a href="@Url.Action("Details", new { id = customer.Id })">Деталі</a> |
                     <a href="@Url.Action("Edit", new { id = customer.Id })">Редагувати</a> |
-                    <a href="@Url.Action("Delete", new { id = customer.Id })">Видалити</a>
+                    <a href="@Url.Action("Delete", new { id = customer.Id })">Видалити</a> |
+                    <a href="@Url.Action("CustomerOrders", new { customerId = customer.Id })">Історія замовлень</a>
                 </td>
             </tr>
         }

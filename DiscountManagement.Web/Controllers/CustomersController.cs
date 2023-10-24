@@ -8,10 +8,16 @@ namespace DiscountManagement.Web.Controllers;
 public class CustomersController : Controller
 {
     private readonly ICustomerService _customerService;
+    private readonly IOrderService _orderService;
 
-    public CustomersController(ICustomerService customerService)
+    // public CustomersController(ICustomerService customerService)
+    // {
+    //     _customerService = customerService;
+    // }
+    public CustomersController(ICustomerService customerService, IOrderService orderService)
     {
         _customerService = customerService;
+        _orderService = orderService;
     }
 
     [HttpGet]
@@ -62,4 +68,16 @@ public class CustomersController : Controller
         _customerService.DeleteCustomer(id);
         return RedirectToAction(nameof(Index));
     }
+    
+    [HttpGet("{customerId}/orders")]
+    public IActionResult CustomerOrders(Guid customerId)
+    {
+        var orders = _orderService.GetOrdersByCustomerId(customerId);
+
+        if (orders == null || !orders.Any())
+            return NotFound("Для цього клієнта замовлення відсутні.");
+
+        return View(model: orders);
+    }
+
 }

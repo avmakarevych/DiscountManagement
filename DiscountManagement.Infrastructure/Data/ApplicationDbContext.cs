@@ -29,5 +29,49 @@ public class AppDbContext : DbContext
             .HasColumnType("decimal(18,2)");
     }
 
-    
+    public static void Seed(AppDbContext dbContext)
+    {
+        if (!dbContext.Customers.Any())
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var customer = new Customer
+                {
+                    PersonalCode = $"PC-{i}",
+                    Name = $"Клієнт {i}",
+                    Email = $"client{i}@test.com",
+                    Address = $"Адреса {i}",
+                    Discount = i
+                };
+
+                dbContext.Customers.Add(customer);
+                
+                var order = new Order
+                {
+                    CustomerId = customer.Id,
+                    OrderDate = DateTime.Now.AddDays(-i),
+                    TotalAmount = i * 100
+                };
+
+                dbContext.Orders.Add(order);
+
+                for (int j = 1; j <= 3; j++)
+                {
+                    var product = new Product
+                    {
+                        Name = $"Продукт {j} для замовлення {i}",
+                        Description = $"Опис продукту {j} для замовлення {i}",
+                        Price = j * 10,
+                        OrderId = order.Id
+                    };
+
+                    dbContext.Products.Add(product);
+                }
+            }
+
+
+            dbContext.SaveChanges();
+        }
+    }
+
 }

@@ -1,0 +1,30 @@
+@model IEnumerable<DiscountManagement.Application.DTOs.OrderDTO>
+
+<h2>Історія замовлень клієнта</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID замовлення</th>
+            <th>Дата замовлення</th>
+            <th>Загальна сума</th>
+            <th>Продукти</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.OrderDate</td>
+                <td>@order.TotalAmount</td>
+                <td>
+                    @foreach (var product in order.Products)
+                    {
+                        <p>@product.Name (Ціна: @product.Price)</p>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
