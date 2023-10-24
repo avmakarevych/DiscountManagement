@@ -8,9 +8,10 @@
         <select name="CustomerId" required>
             @foreach (var customer in ViewBag.Customers)
             {
-                <option value="@customer.Id">@customer.Name</option>
+                <option value="@customer.Id" data-discount="@customer.Discount">@customer.Name</option>
             }
         </select>
+
     </div>
     <div id="productsContainer"></div>
     <button type="button" id="addProductBtn">Додати продукт</button>
@@ -58,6 +59,7 @@
             <text>
             var option = document.createElement('option');
             option.value = "@product.Id";
+            option.setAttribute('data-price', "@product.Price");
             option.textContent = "@Html.Raw(product.Name) (@Html.Raw(product.Price.ToString()))";
             select.appendChild(option);
             </text>
@@ -78,7 +80,6 @@
         document.getElementById('orderDate').value = today;
     });
     
-    // New code to calculate the total amount
     document.querySelector('.order-form').addEventListener('change', function() {
         var productSelects = document.querySelectorAll('select[name="ProductIds"]');
         var quantityInputs = document.querySelectorAll('input[name="Quantities"]');
@@ -92,14 +93,11 @@
             total += productPrice * quantity;
         });
     
-        // Uncomment this line once you have the discount value
         total = total * (1 - discount / 100);
         
         totalAmountInput.value = total.toFixed(2);
     });
 
-
-    // Додайте обробники подій до існуючих елементів
     document.querySelectorAll('select[name="ProductIds"]').forEach(function(select) {
         select.addEventListener('change', calculateTotal);
     });
