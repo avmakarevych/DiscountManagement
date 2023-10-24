@@ -1,8 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model DiscountManagement.Web.Models.DashboardViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Дашборд</h2>
+
+<p><strong>Загальна кількість клієнтів:</strong> @Model.TotalCustomers</p>
+<p><strong>Загальна кількість замовлень:</strong> @Model.TotalOrders</p>
+<p><strong>Загальна кількість продуктів:</strong> @Model.TotalProducts</p>
+
+<a href="@Url.Action("Create", "Customers")">Створити нового клієнта</a>
+<a href="@Url.Action("Create", "Orders")">Створити нове замовлення</a>
+<a href="@Url.Action("Create", "Products")">Створити новий продукт</a>

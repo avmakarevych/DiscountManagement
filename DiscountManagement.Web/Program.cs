@@ -1,7 +1,29 @@
+using Microsoft.EntityFrameworkCore;
+using DiscountManagement.Infrastructure.Data;
+using DiscountManagement.Application.Interfaces;
+using DiscountManagement.Application.Services;
+using DiscountManagement.Core.Interfaces;
+using DiscountManagement.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register the DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("DiscountManagement.Infrastructure")));
+
+// Register services and repositories
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
