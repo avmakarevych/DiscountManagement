@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DiscountManagement.Web.Controllers;
 
+[Route("Customers")]
 public class CustomersController : Controller
 {
     private readonly ICustomerService _customerService;
@@ -14,6 +15,7 @@ public class CustomersController : Controller
     }
 
     [HttpGet]
+    [Route("")]
     public IActionResult Index()
     {
         var customers = _customerService.GetAllCustomers();
@@ -21,6 +23,7 @@ public class CustomersController : Controller
     }
 
     [HttpGet("{id}")]
+    [Route("Details/{id}")]
     public IActionResult Details(Guid id)
     {
         var customer = _customerService.GetCustomer(id);
@@ -30,6 +33,7 @@ public class CustomersController : Controller
     }
 
     [HttpPost]
+    [Route("Create")]
     public IActionResult Create(CustomerDTO customerDTO)
     {
         _customerService.AddCustomer(customerDTO);
@@ -37,6 +41,7 @@ public class CustomersController : Controller
     }
 
     [HttpPost]
+    [Route("Edit")]
     public IActionResult Edit(CustomerDTO customerDTO)
     {
         _customerService.UpdateCustomer(customerDTO);
@@ -44,6 +49,7 @@ public class CustomersController : Controller
     }
 
     [HttpPost("{id}")]
+    [Route("Delete/{id}")]
     public IActionResult Delete(Guid id)
     {
         _customerService.DeleteCustomer(id);

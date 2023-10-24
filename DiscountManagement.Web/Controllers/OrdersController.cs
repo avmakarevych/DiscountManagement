@@ -5,6 +5,7 @@ using DiscountManagement.Web.Models;
 
 namespace DiscountManagement.Web.Controllers;
 
+[Route("Orders")]
 public class OrdersController : Controller
 {
     private readonly IOrderService _orderService;
@@ -15,13 +16,15 @@ public class OrdersController : Controller
     }
 
     [HttpGet]
+    [Route("")]
     public IActionResult Index()
     {
         var orders = _orderService.GetAllOrders();
         return View(orders);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet]
+    [Route("Details/{id}")]
     public IActionResult Details(Guid id)
     {
         var order = _orderService.GetOrder(id);
@@ -30,14 +33,16 @@ public class OrdersController : Controller
         return View(order);
     }
 
-    [HttpGet("create")]
+    [HttpGet]
+    [Route("Create")]
     public IActionResult Create()
     {
         return View();
     }
 
-    [HttpPost("create")]
-    public IActionResult Create(OrderDTO orderDTO)
+    [HttpPost]
+    [Route("CreateOrder")]
+    public IActionResult CreateOrder(OrderDTO orderDTO)
     {
         _orderService.AddOrder(orderDTO);
         return RedirectToAction(nameof(Index));
@@ -91,7 +96,4 @@ public class OrdersController : Controller
         
         return View("CalculatePrice", calculatedPrice);
     }
-
-
-
 }

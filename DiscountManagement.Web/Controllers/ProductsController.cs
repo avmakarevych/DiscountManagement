@@ -4,6 +4,7 @@ using DiscountManagement.Application.Interfaces;
 
 namespace DiscountManagement.Web.Controllers;
 
+[Route("Products")]
 public class ProductsController : Controller
 {
     private readonly IProductService _productService;
@@ -14,13 +15,15 @@ public class ProductsController : Controller
     }
 
     [HttpGet]
+    [Route("")]
     public IActionResult Index()
     {
         var products = _productService.GetAllProducts();
         return View(products);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet]
+    [Route("Details/{id}")]
     public IActionResult Details(Guid id)
     {
         var product = _productService.GetProduct(id);
@@ -29,7 +32,8 @@ public class ProductsController : Controller
         return View(product);
     }
 
-    [HttpGet("create")]
+    [HttpPost]
+    [Route("Create")]
     public IActionResult Create()
     {
         return View();
