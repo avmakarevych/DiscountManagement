@@ -11,7 +11,6 @@
                 <option value="@customer.Id" data-discount="@customer.Discount">@customer.Name</option>
             }
         </select>
-
     </div>
     <div id="productsContainer"></div>
     <button type="button" id="addProductBtn">Додати продукт</button>
@@ -24,6 +23,9 @@
         <label>Загальна сума:</label>
         <input type="number" step="0.01" name="TotalAmount" required />
     </div>
+    <!-- Приховані поля для зберігання ідентифікаторів продуктів та їх кількості -->
+    <input type="hidden" id="hiddenProductIds" name="ProductIds" value="" />
+    <input type="hidden" id="hiddenQuantities" name="Quantities" value="" />
     <div>
         <input type="submit" value="Створити" />
     </div>
@@ -41,12 +43,12 @@
             total += price * quantity;
         }
 
-        // Врахування знижки покупця (припустимо, що знижка відображається у відсотках)
-        //var discount = @ViewBag.CustomerDiscount; // Замініть це значенням знижки покупця
-        var discount = 5;
-       // total = total * (1 - discount / 100);
+        const discount = '@ViewBag.CustomerDiscount' ? parseFloat('@ViewBag.CustomerDiscount') : 0;
+        total = total * (1 - discount / 100);
 
         document.querySelector('input[name="TotalAmount"]').value = total.toFixed(2);
+        document.getElementById('hiddenProductIds').value = Array.from(selects).map(s => s.value).join(',');
+        document.getElementById('hiddenQuantities').value = Array.from(quantities).map(i => i.value).join(',');
     }
 
     document.getElementById('addProductBtn').addEventListener('click', function() {
@@ -73,6 +75,8 @@
         
         productsContainer.appendChild(select);
         productsContainer.appendChild(quantityInput);
+
+        calculateTotal();
     });
     
     document.getElementById('setTodayBtn').addEventListener('click', function() {
@@ -81,21 +85,7 @@
     });
     
     document.querySelector('.order-form').addEventListener('change', function() {
-        var productSelects = document.querySelectorAll('select[name="ProductIds"]');
-        var quantityInputs = document.querySelectorAll('input[name="Quantities"]');
-        var totalAmountInput = document.querySelector('input[name="TotalAmount"]');
-        
-        var total = 0;
-        productSelects.forEach(function(select, index) {
-            var selectedOption = select.options[select.selectedIndex];
-            var productPrice = parseFloat(selectedOption.textContent.split('(')[1].split(' ')[1]);
-            var quantity = parseFloat(quantityInputs[index].value);
-            total += productPrice * quantity;
-        });
-    
-        total = total * (1 - discount / 100);
-        
-        totalAmountInput.value = total.toFixed(2);
+        calculateTotal();
     });
 
     document.querySelectorAll('select[name="ProductIds"]').forEach(function(select) {

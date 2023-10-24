@@ -72,6 +72,11 @@ public class OrderService : IOrderService
 
     private Order MapToEntity(OrderDTO orderDTO)
     {
+        if (orderDTO.Products == null)
+        {
+            throw new ArgumentNullException(nameof(orderDTO.Products), "Products list cannot be null.");
+        }
+
         return new Order
         {
             Id = orderDTO.Id,
@@ -84,6 +89,7 @@ public class OrderService : IOrderService
             }).ToList()
         };
     }
+
     
     public IEnumerable<OrderDTO> GetOrdersByCustomerId(Guid customerId)
     {

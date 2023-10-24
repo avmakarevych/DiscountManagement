@@ -41,8 +41,20 @@ public class OrdersController : Controller
     [Route("Create")]
     public IActionResult Create()
     {
-        ViewBag.Customers = _customerService.GetAllCustomers();
-        ViewBag.Products = _productService.GetAllProducts();
+        var customers = _customerService.GetAllCustomers();
+        ViewBag.Customers = customers;
+        var products = _productService.GetAllProducts();
+        ViewBag.Products = products;
+        
+        var selectedCustomer = customers.FirstOrDefault();
+        if (selectedCustomer != null)
+        {
+            ViewBag.CustomerDiscount = selectedCustomer.Discount;
+        }
+        else
+        {
+            ViewBag.CustomerDiscount = 0;
+        }
 
         return View();
     }
@@ -50,11 +62,30 @@ public class OrdersController : Controller
 
     [HttpPost]
     [Route("CreateOrder")]
-    public IActionResult CreateOrder(OrderDTO orderDTO)
+    public IActionResult CreateOrder(OrderDTO orderDTO, string[] ProductIds, string[] Quantities)
     {
+        if (ProductIds != null && Quantities != null && ProductIds.Length == Quantities.Length)
+        {
+            List<ProductDTO> products = new List<ProductDTO>();
+            for (int i = 0; i < ProductIds.Length; i++)
+            {
+                if (Guid.TryParse(ProductIds[i], out Guid productId))
+                {
+                    products.Add(new ProductDTO
+                    {
+                        Id = productId,
+                        Quantity = int.Parse(Quantities[i])
+                    });
+                }
+
+            }
+            orderDTO.Products = products;
+        }
+
         _orderService.AddOrder(orderDTO);
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index");
     }
+
 
     [HttpGet("edit/{id}")]
     public IActionResult Edit(Guid id)
