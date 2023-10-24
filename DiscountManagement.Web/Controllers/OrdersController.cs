@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DiscountManagement.Application.DTOs;
 using DiscountManagement.Application.Interfaces;
+using DiscountManagement.Web.Models;
 
 namespace DiscountManagement.Web.Controllers;
 
@@ -64,4 +65,33 @@ public class OrdersController : Controller
         _orderService.DeleteOrder(id);
         return RedirectToAction(nameof(Index));
     }
+    
+    [HttpGet("history/{customerId}")]
+    public IActionResult OrderHistory(Guid customerId)
+    {
+        var orders = _orderService.GetOrdersByCustomerId(customerId);
+        if (orders == null || !orders.Any())
+            return NotFound();
+
+        return View(orders);
+    }
+    [HttpGet("calculate-price/{orderId}")]
+    public IActionResult CalculatePrice(Guid orderId)
+    {
+        decimal calculatedPrice;
+        try
+        {
+            calculatedPrice = _orderService.CalculateTotalPrice(orderId);
+        }
+        catch (Exception ex)
+        {
+            var errorModel = new ErrorViewModel { Message = ex.Message };
+            return View("Error", errorModel);
+        }
+        
+        return View("CalculatePrice", calculatedPrice);
+    }
+
+
+
 }

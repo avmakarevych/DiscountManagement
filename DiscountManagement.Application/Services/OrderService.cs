@@ -8,6 +8,13 @@ namespace DiscountManagement.Application.Services;
 public class OrderService : IOrderService
 {
     private readonly IOrderRepository _orderRepository;
+    private readonly ICustomerRepository _customerRepository;
+
+    public OrderService(IOrderRepository orderRepository, ICustomerRepository customerRepository)
+    {
+        _orderRepository = orderRepository;
+        _customerRepository = customerRepository;
+    }
 
     public OrderService(IOrderRepository orderRepository)
     {
@@ -72,5 +79,34 @@ public class OrderService : IOrderService
             }).ToList()
         };
     }
+    
+    public IEnumerable<OrderDTO> GetOrdersByCustomerId(Guid customerId)
+    {
+        var orders = _orderRepository.GetAll().Where(o => o.CustomerId == customerId);
+        return orders.Select(MapToDTO);
+    }
+    
+    public decimal CalculateTotalPrice(Guid orderId)
+    {
+        var order = _orderRepository.Get(orderId);
+        if (order == null)
+            throw new Exception("Order not found.");
+
+        var customer = _customerRepository.Get(order.CustomerId);
+        if (customer == null)
+            throw new Exception("Customer not found.");
+
+        decimal total = 0;
+
+        foreach (var product in order.Products)
+        {
+            total += product.Price;
+        }
+
+        total = total * (1 - customer.Discount / 100);
+        return total;
+    }
+
+
 
 }

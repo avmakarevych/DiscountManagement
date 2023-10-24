@@ -9,4 +9,6 @@ public interface IOrderService
     void AddOrder(OrderDTO orderDTO);
     void UpdateOrder(OrderDTO orderDTO);
     void DeleteOrder(Guid id);
+    IEnumerable<OrderDTO> GetOrdersByCustomerId(Guid customerId);
+    decimal CalculateTotalPrice(Guid orderId);
 }

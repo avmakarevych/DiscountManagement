@@ -1,0 +1,41 @@
+@model IEnumerable<DiscountManagement.Application.DTOs.OrderDTO>
+
+@{
+    ViewBag.Title = "Історія замовлень клієнта";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (!Model.Any())
+{
+    <p>Замовлення для даного клієнта відсутні.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id замовлення</th>
+            <th>Id клієнта</th>
+            <th>Продукти</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.CustomerId</td>
+                <td>
+                    <ul>
+                        @foreach (var product in order.Products)
+                        {
+                            <li>@product.Name (Ціна: @product.Price)</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
