@@ -59,8 +59,8 @@ public class AppDbContext : DbContext
                 {
                     var product = new Product
                     {
-                        Name = $"Продукт {j} для замовлення {i}",
-                        Description = $"Опис продукту {j} для замовлення {i}",
+                        Name = $"Продукт {j}",
+                        Description = $"Опис продукту {j}",
                         Price = j * 10,
                         OrderId = order.Id
                     };

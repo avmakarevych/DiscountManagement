@@ -63,3 +63,41 @@ h3 {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
 }
+
+/* Стилі для форми створення замовлення */
+
+.order-form div {
+    margin-bottom: 20px;
+}
+
+.order-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.order-form select,
+.order-form input,
+.order-form button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.order-form button[type="button"] {
+    width: auto;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.order-form button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+.order-form input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+}

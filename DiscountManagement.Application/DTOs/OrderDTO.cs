@@ -7,4 +7,7 @@ public class OrderDTO
     public DateTime OrderDate { get; set; }
     public decimal TotalAmount { get; set; }
     public List<ProductDTO> Products { get; set; }
+    public decimal CustomerDiscount { get; set; }
+    public Guid[] ProductIds { get; set; }
+    public int[] Quantities { get; set; } 
 }

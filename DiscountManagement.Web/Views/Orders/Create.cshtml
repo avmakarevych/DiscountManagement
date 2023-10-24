@@ -2,14 +2,22 @@
 
 <h2>Створити нове замовлення</h2>
 
-<form method="post">
+<form method="post" action="@Url.Action("CreateOrder", "Orders")" class="order-form">
     <div>
-        <label>ID клієнта:</label>
-        <input type="text" name="CustomerId" required />
+        <label>Клієнт:</label>
+        <select name="CustomerId" required>
+            @foreach (var customer in ViewBag.Customers)
+            {
+                <option value="@customer.Id">@customer.Name</option>
+            }
+        </select>
     </div>
+    <div id="productsContainer"></div>
+    <button type="button" id="addProductBtn">Додати продукт</button>
     <div>
         <label>Дата замовлення:</label>
-        <input type="date" name="OrderDate" required />
+        <input type="date" name="OrderDate" id="orderDate" required />
+        <button type="button" id="setTodayBtn">Встановити сьогоднішню дату</button>
     </div>
     <div>
         <label>Загальна сума:</label>
@@ -19,3 +27,83 @@
         <input type="submit" value="Створити" />
     </div>
 </form>
+
+<script>
+    function calculateTotal() {
+        var total = 0;
+        var selects = document.querySelectorAll('select[name="ProductIds"]');
+        var quantities = document.querySelectorAll('input[name="Quantities"]');
+        
+        for (var i = 0; i < selects.length; i++) {
+            var price = parseFloat(selects[i].options[selects[i].selectedIndex].getAttribute('data-price'));
+            var quantity = parseFloat(quantities[i].value);
+            total += price * quantity;
+        }
+
+        // Врахування знижки покупця (припустимо, що знижка відображається у відсотках)
+        //var discount = @ViewBag.CustomerDiscount; // Замініть це значенням знижки покупця
+        var discount = 5;
+       // total = total * (1 - discount / 100);
+
+        document.querySelector('input[name="TotalAmount"]').value = total.toFixed(2);
+    }
+
+    document.getElementById('addProductBtn').addEventListener('click', function() {
+        var productsContainer = document.getElementById('productsContainer');
+        
+        var select = document.createElement('select');
+        select.name = "ProductIds";
+        @foreach (var product in ViewBag.Products)
+        {
+            <text>
+            var option = document.createElement('option');
+            option.value = "@product.Id";
+            option.textContent = "@Html.Raw(product.Name) (@Html.Raw(product.Price.ToString()))";
+            select.appendChild(option);
+            </text>
+        }
+        
+        var quantityInput = document.createElement('input');
+        quantityInput.type = "number";
+        quantityInput.name = "Quantities";
+        quantityInput.min = "1";
+        quantityInput.value = "1";
+        
+        productsContainer.appendChild(select);
+        productsContainer.appendChild(quantityInput);
+    });
+    
+    document.getElementById('setTodayBtn').addEventListener('click', function() {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('orderDate').value = today;
+    });
+    
+    // New code to calculate the total amount
+    document.querySelector('.order-form').addEventListener('change', function() {
+        var productSelects = document.querySelectorAll('select[name="ProductIds"]');
+        var quantityInputs = document.querySelectorAll('input[name="Quantities"]');
+        var totalAmountInput = document.querySelector('input[name="TotalAmount"]');
+        
+        var total = 0;
+        productSelects.forEach(function(select, index) {
+            var selectedOption = select.options[select.selectedIndex];
+            var productPrice = parseFloat(selectedOption.textContent.split('(')[1].split(' ')[1]);
+            var quantity = parseFloat(quantityInputs[index].value);
+            total += productPrice * quantity;
+        });
+    
+        // Uncomment this line once you have the discount value
+        total = total * (1 - discount / 100);
+        
+        totalAmountInput.value = total.toFixed(2);
+    });
+
+
+    // Додайте обробники подій до існуючих елементів
+    document.querySelectorAll('select[name="ProductIds"]').forEach(function(select) {
+        select.addEventListener('change', calculateTotal);
+    });
+    document.querySelectorAll('input[name="Quantities"]').forEach(function(input) {
+        input.addEventListener('input', calculateTotal);
+    });
+</script>

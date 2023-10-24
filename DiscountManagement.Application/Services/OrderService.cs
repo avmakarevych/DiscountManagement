@@ -52,18 +52,23 @@ public class OrderService : IOrderService
 
     private OrderDTO MapToDTO(Order order)
     {
+        var customer = _customerRepository.Get(order.CustomerId);
+        var totalAmount = order.Products.Sum(p => p.Price) * (1 - customer.Discount / 100);
         return new OrderDTO
         {
             Id = order.Id,
             CustomerId = order.CustomerId,
+            CustomerDiscount = customer.Discount,
+            TotalAmount = totalAmount,
             Products = order.Products.Select(product => new ProductDTO
             {
                 Id = product.Id,
                 Name = product.Name,
-                Price = product.Price
+                Price = product.Price,
             }).ToList()
         };
     }
+
 
     private Order MapToEntity(OrderDTO orderDTO)
     {

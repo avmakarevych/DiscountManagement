@@ -9,10 +9,14 @@ namespace DiscountManagement.Web.Controllers;
 public class OrdersController : Controller
 {
     private readonly IOrderService _orderService;
+    private readonly ICustomerService _customerService;
+    private readonly IProductService _productService;
 
-    public OrdersController(IOrderService orderService)
+    public OrdersController(IOrderService orderService, ICustomerService customerService, IProductService productService)
     {
         _orderService = orderService;
+        _customerService = customerService;
+        _productService = productService;
     }
 
     [HttpGet]
@@ -37,8 +41,12 @@ public class OrdersController : Controller
     [Route("Create")]
     public IActionResult Create()
     {
+        ViewBag.Customers = _customerService.GetAllCustomers();
+        ViewBag.Products = _productService.GetAllProducts();
+
         return View();
     }
+
 
     [HttpPost]
     [Route("CreateOrder")]

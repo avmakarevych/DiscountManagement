@@ -7,6 +7,7 @@
         <tr>
             <th>ID замовлення</th>
             <th>Дата замовлення</th>
+            <th>Персональна знижка</th>
             <th>Загальна сума</th>
             <th>Продукти</th>
         </tr>
@@ -17,6 +18,7 @@
             <tr>
                 <td>@order.Id</td>
                 <td>@order.OrderDate</td>
+                <td>@order.CustomerDiscount</td>
                 <td>@order.TotalAmount</td>
                 <td>
                     @foreach (var product in order.Products)
