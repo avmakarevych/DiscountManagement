@@ -1,6 +1,7 @@
 @model DiscountManagement.Application.DTOs.CustomerDTO
 
-<h2>@(Model.Id == Guid.Empty ? "Створити нового клієнта" : "Редагувати клієнта")</h2>
+<h2>@(Model == null ? "Створити нового клієнта" : (Model.Id == Guid.Empty ? "Створити нового клієнта" : "Редагувати клієнта"))</h2>
+
 
 <form method="post">
     <div>

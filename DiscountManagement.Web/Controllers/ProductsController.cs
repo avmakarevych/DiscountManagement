@@ -31,13 +31,20 @@ public class ProductsController : Controller
             return NotFound();
         return View(product);
     }
-
-    [HttpPost]
+    
+    [HttpGet]
     [Route("Create")]
     public IActionResult Create()
     {
         return View();
     }
+
+    // [HttpPost]
+    // [Route("Create")]
+    // public IActionResult Create()
+    // {
+    //     return View();
+    // }
 
     [HttpPost("create")]
     public IActionResult Create(ProductDTO productDTO)

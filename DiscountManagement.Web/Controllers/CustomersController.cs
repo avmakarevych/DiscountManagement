@@ -31,6 +31,13 @@ public class CustomersController : Controller
             return NotFound();
         return View(customer);
     }
+    
+    [HttpGet]
+    [Route("Create")]
+    public IActionResult Create()
+    {
+        return View(new CustomerDTO());
+    }
 
     [HttpPost]
     [Route("Create")]

@@ -17,8 +17,12 @@ public class CustomerService : ICustomerService
     public CustomerDTO GetCustomer(Guid id)
     {
         var customer = _customerRepository.Get(id);
+        if (customer == null)
+            return null;
+
         return MapToDTO(customer);
     }
+
 
     public IEnumerable<CustomerDTO> GetAllCustomers()
     {
@@ -45,6 +49,9 @@ public class CustomerService : ICustomerService
 
     private CustomerDTO MapToDTO(Customer customer)
     {
+        if (customer == null)
+            return null;
+
         return new CustomerDTO
         {
             Id = customer.Id,
@@ -55,6 +62,7 @@ public class CustomerService : ICustomerService
             Discount = customer.Discount
         };
     }
+
 
     private Customer MapToEntity(CustomerDTO customerDTO)
     {
