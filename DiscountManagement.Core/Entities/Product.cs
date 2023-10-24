@@ -10,7 +10,7 @@ public class Product
     public string Name { get; set; }
     
     [StringLength(250)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     [Range(0, double.MaxValue)]
     public decimal Price { get; set; }
